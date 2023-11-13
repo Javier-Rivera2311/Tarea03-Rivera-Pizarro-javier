@@ -44,27 +44,27 @@ def main():
     parser.add_argument("--api", help="MAC a consultar usando la API. P.e. aa:bb:cc:00:00:00.")
     args = parser.parse_args()
 
-    if args.mac:
+       if args.mac:
         mac_address = args.mac
-        vendor, _ = obtener_datos_por_mac(mac_address)
+        vendor, elapsed_time = obtener_datos_por_mac(mac_address)
         if vendor:
-            print(f"IP address: {mac_address} Fabricante: {vendor}ms")
+            print(f"IP address: {mac_address} Fabricante: {vendor} Tiempo de respuesta: {elapsed_time}ms")
         else:
-            print(f"No se encontró información del fabricante para la dirección MAC {mac_address}.")
+            print(f"No se encontró información del fabricante para la dirección MAC {mac_address}. Tiempo de respuesta: {elapsed_time}ms")
     elif args.ip:
         ip_address = args.ip
         obtener_datos_por_ip(ip_address)
     elif args.arp:
         response = os.popen("arp -a").read()
         arp_table = re.findall(r"((\d{1,3}\.){3}\d{1,3})\s+([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})\s+(\w+)", response)
-        print("IP/MAC/Vendor:")
+        print("IP/MAC/Vendor/Tiempo de respuesta:")
         for arp_entry in arp_table:
             ip_address, _, mac_address, _, _ = arp_entry
-            vendor, _ = obtener_datos_por_mac(mac_address)
+            vendor, elapsed_time = obtener_datos_por_mac(mac_address)
             if vendor:
-                print(ip_address + " / " + mac_address + " / " + vendor)
+                print(ip_address + " / " + mac_address + " / " + vendor + " / " + str(elapsed_time) + "ms")
             else:
-                print(ip_address + " / " + mac_address + " / No se encontró información del fabricante.")
+                print(ip_address + " / " + mac_address + " / No se encontró información del fabricante. / " + str(elapsed_time) + "ms")
     else:
         parser.print_help()
 
