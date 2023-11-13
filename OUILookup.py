@@ -48,7 +48,7 @@ def main():
         mac_address = args.mac
         vendor, elapsed_time = obtener_datos_por_mac(mac_address)
         if vendor:
-            print(f"IP address: {mac_address} Fabricante: {vendor} Tiempo de respuesta: {elapsed_time}ms")
+            print(f"IP address: {mac_address} \nFabricante: {vendor} \nTiempo de respuesta: {elapsed_time}ms")
         else:
             print(f"No se encontró información del fabricante para la dirección MAC {mac_address}. Tiempo de respuesta: {elapsed_time}ms")
     elif args.ip:
