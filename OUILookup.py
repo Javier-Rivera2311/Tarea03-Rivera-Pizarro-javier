@@ -44,7 +44,7 @@ def main():
     parser.add_argument("--api", help="MAC a consultar usando la API. P.e. aa:bb:cc:00:00:00.")
     args = parser.parse_args()
 
-       if args.mac:
+    if args.mac:
         mac_address = args.mac
         vendor, elapsed_time = obtener_datos_por_mac(mac_address)
         if vendor:
